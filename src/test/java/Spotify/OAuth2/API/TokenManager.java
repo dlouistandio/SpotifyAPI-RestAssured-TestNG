@@ -1,33 +1,49 @@
 package Spotify.OAuth2.API;
 
+import Spotify.OAuth2.Utils.ConfigLoader;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import java.time.Instant;
 import java.util.HashMap;
 
 import static Spotify.OAuth2.API.SpecBuilder.getResponseSpec;
 import static io.restassured.RestAssured.given;
 
 public class TokenManager {
+    private static String access_token;
+    private static Instant expiry_time;
 
-    public static String renewToken(){
+    public static String getToken(){
+        try {
+            if(access_token == null || Instant.now().isAfter(expiry_time)){
+                System.out.println("Renewing Token...");
+                Response response = renewToken();
+                access_token = response.path("access_token");
+                int expiryDurationInSeconds = response.path("expires_in");
+                expiry_time = Instant.now().plusSeconds(expiryDurationInSeconds - 300);
+            }else {
+                System.out.println("No need new Token");
+            }
+        }catch (Exception e){
+            throw new RuntimeException("Failed to get token");
+        }
+        return access_token;
+    }
+
+    private static Response renewToken(){
         HashMap<String , String> formParams = new HashMap<>();
 
-        formParams.put("grant_type", "refresh_token");
-        formParams.put("refresh_token", "AQA1UEilAOc0uLElXcTsvvaYQranfK9KPb8JqBBEIM3cIYVtZtWCGUtN4nrHqGA_acN8Az_kxFH_GJ40bFF2g4lFbx-WNt924Rkx1AQUVTmOAKG0n_wLokFMudjGzpAIXnw");
-        formParams.put("client_id", "08a5f0124f6d430facb77e5bb514a80b");
-        formParams.put("client_secret", "247ca39eee5a40bbbfae99ca9d68fddd");
+        formParams.put("grant_type", ConfigLoader.getInstance().getGrantType());
+        formParams.put("refresh_token", ConfigLoader.getInstance().getRefreshToken());
+        formParams.put("client_id", ConfigLoader.getInstance().getClientId());
+        formParams.put("client_secret", ConfigLoader.getInstance().getClientSecret());
 
-       Response response = given().baseUri("https://accounts.spotify.com").
-                contentType(ContentType.URLENC).
-                formParams(formParams).
-        when().post("/api/token").
-        then().spec(getResponseSpec()).
-                extract().response();
+       Response response = RestResource.postAccount(formParams);
 
        if(response.statusCode() != 200){
            throw new RuntimeException("Abort!! Renwe Token Fail");
        }
-       return response.path("access_token");
+       return response;
     }
 }
