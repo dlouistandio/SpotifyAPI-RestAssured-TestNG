@@ -2,33 +2,21 @@ package Spotify.OAuth2.Pojo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Value;
+import lombok.extern.jackson.Jacksonized;
 
+//@Setter @Getter
+@Jacksonized
+@Value
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class InnerError {
 
     @JsonProperty("status")
-    private Integer status;
+    Integer status;
     @JsonProperty("message")
-    private String message;
-
-    @JsonProperty("status")
-    public Integer getStatus() {
-        return status;
-    }
-
-    @JsonProperty("status")
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    @JsonProperty("message")
-    public String getMessage() {
-        return message;
-    }
-
-    @JsonProperty("message")
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
+    String message;
 }
