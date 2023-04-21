@@ -1,0 +1,5 @@
+# Created at 2023-04-21T16:59:45.292
+Boot Manifest-JAR contains absolute paths in classpath 'E:\SpotifyAPI-RestAssured\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

@@ -29,5 +29,10 @@ public class DataLoader {
         else throw new RuntimeException("update_playlist_id in properties file is null");
     }
 
+    public String getAlbumId(){
+        String props = properties.getProperty("get_album_id");
+        if(props != null) return props;
+        else throw new RuntimeException("get_album_id in properties file is null");
+    }
 
 }

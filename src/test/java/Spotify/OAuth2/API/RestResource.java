@@ -1,6 +1,5 @@
 package Spotify.OAuth2.API;
 
-import Spotify.OAuth2.Pojo.Playlist;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 

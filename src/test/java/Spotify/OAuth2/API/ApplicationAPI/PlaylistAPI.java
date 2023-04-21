@@ -1,7 +1,7 @@
 package Spotify.OAuth2.API.ApplicationAPI;
 
 import Spotify.OAuth2.API.RestResource;
-import Spotify.OAuth2.Pojo.Playlist;
+import Spotify.OAuth2.Pojo.Playlist.Playlist;
 import Spotify.OAuth2.Utils.ConfigLoader;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
