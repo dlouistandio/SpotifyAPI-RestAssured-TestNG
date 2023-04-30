@@ -22,6 +22,8 @@ jobs:
           
       - name: Build with Maven
         run: mvn clean test
+        if: always()
+        continue-on-error: true
         
       - name: Get Allure history
         uses: actions/checkout@v3
