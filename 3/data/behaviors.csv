@@ -1,0 +1,6 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"Spotify API","Playlist","Valid Get Playlist","1","0","0","0","0"
+"Spotify API","Playlist","Valid Update Playlist","0","0","1","0","0"
+"Spotify API","Playlist","Invalid Create Playlist","0","0","2","0","0"
+"Spotify API","Playlist","Valid Create Playlist","1","0","0","0","0"
+"","","","0","0","1","0","0"
